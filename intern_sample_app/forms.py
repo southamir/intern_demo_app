@@ -37,6 +37,13 @@ class ExaminationForm(forms.Form):
         required=True,
         widget=forms.NumberInput()
     )
+    int_rate = forms.DecimalField(
+        label="ローンの金利(%)",
+        min_value=0,
+        max_value=100,
+        required=True,
+        widget=forms.NumberInput()
+    )
     emp_title = forms.CharField(
         label="職種",
         max_length=60,
@@ -71,6 +78,7 @@ class ExaminationForm(forms.Form):
             "PredictEndpoint": amazon_ml_endpoint,
             "Record": {
                 "loan_amnt": str(self.cleaned_data['loan_amnt']),
+                "int_rate": str(self.cleaned_data['int_rate']),
                 "emp_title": self.cleaned_data['emp_title'],
                 "emp_length": self.cleaned_data['emp_length'],
                 "annual_inc": str(self.cleaned_data['annual_inc']),
